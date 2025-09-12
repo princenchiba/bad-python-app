@@ -7,29 +7,29 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 public class App
 {
 
-    static String secret = "secret";
+    static String secret = System.getenv("JWT_SECRET");
 
     private static void bad1() {
         try {
-            // ruleid: java-jwt-hardcoded-secret
-            Algorithm algorithm = Algorithm.HMAC256("secret");
+            
+            Algorithm algorithm = Algorithm.HMAC256(System.getenv("JWT_SECRET"));
             String token = JWT.create()
                 .withIssuer("auth0")
                 .sign(algorithm);
         } catch (JWTCreationException exception){
-            //Invalid Signing configuration / Couldn't convert Claims.
+            
         }
     }
 
     private static void ok1(String secretKey) {
         try {
-            // ok: java-jwt-hardcoded-secret
-            Algorithm algorithm = Algorithm.HMAC256(secretKey);
+            
+            Algorithm algorithm = Algorithm.HMAC256(System.getenv("JWT_SECRET"));
             String token = JWT.create()
                 .withIssuer("auth0")
                 .sign(algorithm);
         } catch (JWTCreationException exception){
-            //Invalid Signing configuration / Couldn't convert Claims.
+            
         }
     }
 
@@ -42,17 +42,17 @@ public class App
 
 abstract class App2
 {
-// ruleid: java-jwt-hardcoded-secret
-    static String secret = "secret";
+
+    static String secret = System.getenv("JWT_SECRET");
 
     public void bad2() {
         try {
-            Algorithm algorithm = Algorithm.HMAC256(secret);
+            Algorithm algorithm = Algorithm.HMAC256(System.getenv("JWT_SECRET"));
             String token = JWT.create()
                 .withIssuer("auth0")
                 .sign(algorithm);
         } catch (JWTCreationException exception){
-            //Invalid Signing configuration / Couldn't convert Claims.
+            
         }
     }
 
