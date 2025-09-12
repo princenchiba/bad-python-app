@@ -19,6 +19,18 @@ permissions:
   contents: read
 
 jobs:
+  env-variables:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create .env file from secrets
+        run: |
+          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
+          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
+          echo ".env file created with secrets."
   semgrep:
     # User definable name of this GitHub Actions job.
     name: semgrep/ci
